@@ -11,7 +11,7 @@ class ImagerProfile(models.Model):
     @classmethod
     def active(cls):
         """Return profiles of all active users"""
-        return cls.objects.filter(is_active=True)
+        return [p for p in cls.objects.all() if p.user.is_active]
 
     @property
     def is_active(self):
