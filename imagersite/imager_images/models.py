@@ -1,5 +1,5 @@
 from django.db import models
-from .imager_profile import imager_profile
+from imager_profile.models import ImagerProfile
 
 
 VISIBILITY_CHOICES = (
