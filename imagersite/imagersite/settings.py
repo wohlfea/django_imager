@@ -24,9 +24,12 @@ SECRET_KEY = 'j_@f1bu!!h4v52^$e95nb94kwo292$12-ng7)3k7%fscbjc(u-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp', 'emails')
 ALLOWED_HOSTS = []
-
+# HMAC Activation
+ACCOUNT_ACTIVATION_DAYS = 7
 
 # Application definition
 
@@ -57,7 +60,9 @@ ROOT_URLCONF = 'imagersite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'imagersite', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

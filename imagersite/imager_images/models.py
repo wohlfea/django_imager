@@ -1,5 +1,4 @@
 from django.db import models
-from imager_profile.models import ImagerProfile
 from django.utils.encoding import python_2_unicode_compatible
 from django.conf import settings
 
