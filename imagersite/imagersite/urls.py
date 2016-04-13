@@ -22,7 +22,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home_page, name='home_page'),
     url(r'^accounts/login/', 'django.contrib.auth.views.login'),
-    url(r'^accounts/', include('registration.backends.hmac.urls'))
+    url(r'^accounts/logout/', 'django.contrib.auth.views.logout', name='logout'),
+    url(r'^accounts/', include('registration.backends.hmac.urls')),
     # url(r'^home/(?P<id>[0-9]+)', ClassView.as_view(), name='home_page'),
     # url(r'^home/([0-9]+)', home_page, name='home_page')
 ]

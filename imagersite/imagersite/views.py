@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 # from django.http import HttpResponse
 # from django.template import loader
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth.views import login
 #     kwargstring = argstring = ''
@@ -37,5 +37,6 @@ def home_page(request):
     return render(request, 'home.html', context={})
 
 
-# def login_page(request):
-#     return login(request)
+def logout(request):
+    logout(request)
+    return redirect('home_page')
