@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth.views import login
+from imager_images.models import Image
 #     kwargstring = argstring = ''
 #     if args:
 #         argstring = 'args: {}'.format(', '.join(args))
@@ -34,7 +35,14 @@ from django.contrib.auth.views import login
 #         return {'foo': foo}
 
 def home_page(request):
-    return render(request, 'home.html', context={})
+    try:
+        img = Image.objects.all().filter(published='public').order_by("?")[0].photo
+    except IndexError:
+        img = 'https://www.petfinder.com/wp-content/uploads/2012/11/99233806-bringing-home-new-cat-632x475.jpg'
+    return render(request, 'home.html', context={'img': img})
+
+
+
 
 
 def logout(request):

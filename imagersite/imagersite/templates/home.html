@@ -1,15 +1,10 @@
 {% extends "base.html" %}
 
-{% block header %}
-<li><a href="accounts/login">LOGIN</a></li>
-<li><a href="accounts/register">REGISTER</a></li>
-{% endblock %}
-
 {% block content %}
 <div class="container">
 <div class="row">
   <div class="col-md-2">
-      <img src='https://www.petfinder.com/wp-content/uploads/2012/11/99233806-bringing-home-new-cat-632x475.jpg' height='300px'/>
+      <img src='{{ img }}' height='300px'/>
   </div>
   <div class="col-md-3"></div>
   <div class="col-md-4">
@@ -21,6 +16,7 @@ Now, we're going to fluff this cloud. The shadows are just like the highlights, 
 </div>
   <div class="col-md-3"></div>
 </div>
+{% if not user.is_authenticated %}
 <div class="row">
     <div class="col-md-6">
         <a href="accounts/login">LOGIN</a>
@@ -29,5 +25,6 @@ Now, we're going to fluff this cloud. The shadows are just like the highlights, 
         <a href="accounts/register">REGISTER</a>
     </div>
 </div>
+{% endif %}
 </div>
 {% endblock %}
