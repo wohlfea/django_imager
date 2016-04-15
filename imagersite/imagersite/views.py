@@ -36,13 +36,10 @@ from imager_images.models import Image
 
 def home_page(request):
     try:
-        img = Image.objects.all().filter(published='public').order_by("?")[0].photo
+        img = Image.objects.all().filter(published='Public').order_by("?")[0].photo.url
     except IndexError:
         img = 'https://www.petfinder.com/wp-content/uploads/2012/11/99233806-bringing-home-new-cat-632x475.jpg'
     return render(request, 'home.html', context={'img': img})
-
-
-
 
 
 def logout(request):
