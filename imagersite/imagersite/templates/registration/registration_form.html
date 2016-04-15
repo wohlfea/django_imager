@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-3">
+                <section id="forms">
+                    <div class="form-group">
+                        <h2>Username:</h2>
+                        {{ form.username }}
+                    </div>
+                </section>
+            </div>
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-3">
+                <section id="forms">
+                    <div class="form-group">
+                        <h2>Email:</h2>
+                        {{ form.email }}
+                    </div>
+                </section>
+            </div>
+            <div class="col-sm-2">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-3">
+                <section id="forms">
+                    <div class="form-group">
+                        <h2>Password:</h2>
+                        {{ form.password1 }}
+                    </div>
+                </section>
+            </div>
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-3">
+                <section id="forms">
+                    <div class="form-group">
+                        <h2>Password again:</h2>
+                        {{ form.password2 }}
+                    </div>
+                </section>
+            </div>
+            <div class="col-sm-2">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-lg btn-default">Create Account!</button>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </form>
+</div>
+{% endblock %}

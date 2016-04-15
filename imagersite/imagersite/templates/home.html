@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+  <div class="col-md-2">
+      <img src='{{ img }}' height='300px'/>
+  </div>
+  <div class="col-md-3"></div>
+  <div class="col-md-4">
+  <p>
+Little trees and bushes grow however makes them happy. Just let this happen. We just let this flow right out of our minds. I guess I'm a little weird. I like to talk to trees and animals. That's okay though; I have more fun than most people. You're meant to have fun in life. There we go.
+
+Now, we're going to fluff this cloud. The shadows are just like the highlights, but we're going in the opposite direction. From all of us here, I want to wish you happy painting and God bless, my friends. I started painting as a hobby when I was little. I didn't know I had any talent. I believe talent is just a pursued interest. Anybody can do what I do. Let's make a happy little mountain now. We'll take a little bit of Van Dyke Brown.
+</p>
+</div>
+  <div class="col-md-3"></div>
+</div>
+{% if not user.is_authenticated %}
+<div class="row">
+    <div class="col-md-6">
+        <a href="/accounts/login">LOGIN</a>
+    </div>
+    <div class="col-md-6">
+        <a href="/accounts/register">REGISTER</a>
+    </div>
+</div>
+{% endif %}
+</div>
+{% endblock %}

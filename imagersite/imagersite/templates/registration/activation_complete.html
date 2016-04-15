@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block header %}
+<li><a href="accounts/login">LOGIN</a></li>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <h1>Success!</h1>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+      <div class="col-md-6">
+          <h1>You're now activated.  Way to go!</h1>
+          <a href="/accounts/login">LOGIN</a>
+      </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+{% endblock %}

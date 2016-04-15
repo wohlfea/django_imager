@@ -2,9 +2,10 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import Album, Image
 from datetime import datetime
-from django.db.models import ImageField
 from django.db.models.fields.files import ImageFieldFile
 import factory
+import os
+from imagersite.settings import BASE_DIR
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):
@@ -32,6 +33,12 @@ class TestImages(TestCase):
         self.image1.save()
         self.image2.save()
         self.image1.albums.add(self.album1)
+
+    def tearDown(self):
+        os.remove(os.path.join(BASE_DIR,
+                               'media/{}'.format(self.image1.photo.url)))
+        os.remove(os.path.join(BASE_DIR,
+                               'media/{}'.format(self.image2.photo.url)))
 
     def test_album_exists(self):
         """Test album has been created."""
