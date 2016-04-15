@@ -32,8 +32,8 @@
           <ul class="nav navbar-nav">
               {% if not user.is_authenticated %}
               <li class=""><a href="/">HOME</a></li>
-                <li><a href="accounts/login">LOGIN</a></li>
-                <li><a href="accounts/register">REGISTER</a></li>
+                <li><a href="/accounts/login">LOGIN</a></li>
+                <li><a href="/accounts/register">REGISTER</a></li>
               {% else %}
                 <li><a href="{% url 'auth_logout' %}">LOGOUT</a></li>
               {% endif %}

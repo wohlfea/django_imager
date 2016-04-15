@@ -17,7 +17,7 @@ class PhotoFactory(factory.django.DjangoModelFactory):
 class TestProfile(TestCase):
 
     def setUp(self):
-        self.test_user1 = User.objects.create_user('test user',
+        self.test_user1 = User.objects.create_user('testuser',
                                                    'test@test.com',
                                                    'testpassword')
         self.test_user1.save()
@@ -28,8 +28,11 @@ class TestProfile(TestCase):
                                           owner=self.test_user1)
         self.image1.save()
         self.image2.save()
+
         self.unauth = Client()
-        self.unauth.login(username='fred', password='secret')
+
+        self.auth = Client()
+        self.auth.login(username='testuser', password='testpassword')
 
     def tearDown(self):
         os.remove(os.path.join(BASE_DIR,
@@ -52,15 +55,6 @@ class TestProfile(TestCase):
     def test_auth_home_response(self):
         response = self.unauth.get('/')
         self.assertEquals(response.status_code, 200)
-
-    def test_unauth_login(self):
-        self.unauth.get('/accounts/login')
-        response = self.unauth.post(
-            '/account/login/',
-            {'username': 'testuser', 'password': 'password'},
-            follow=True
-            )
-        self.assertEquals(response.status_code, 301)
 
     def test_public_image_in_response(self):
         response = self.unauth.get('/')
