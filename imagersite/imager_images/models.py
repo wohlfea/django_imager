@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.conf import settings
+from sorl.thumbnail import ImageField
 
 
 VISIBILITY_CHOICES = (
@@ -24,6 +25,8 @@ class Album(models.Model):
     date_published = models.DateTimeField(auto_now_add=True)
     published = models.CharField(max_length=7, choices=VISIBILITY_CHOICES,
                                  default='Private')
+    cover = ImageField(default='/photo_files/default_cat.jpg')
+
 
     def __str__(self):
         return self.title
@@ -36,7 +39,7 @@ class Image(models.Model):
                               on_delete=models.CASCADE,
                               related_name='images',
                               null=True)
-    photo = models.ImageField(upload_to='photo_files/%Y-%m-%d', null=True)
+    photo = ImageField(upload_to='photo_files/%Y-%m-%d', null=True)
     title = models.CharField(default='', max_length=255)
     description = models.TextField(default='')
     date_uploaded = models.DateTimeField(auto_now_add=True)
