@@ -38,22 +38,28 @@ def library(request):
                   context={'albums': request.user.albums.all(),
                            'images': request.user.images.all()})
 
+
 def profile_view(request):
     if request.user.is_authenticated():
         try:
-            img = Image.objects.all().filter(owner=request.user.profile.user).order_by("?")[0].photo.url
+            img = Image.objects.all().filter(owner=request.user.profile.user
+                                             ).order_by("?")[0].photo.url
         except IndexError:
             img = 'https://www.petfinder.com/wp-content/uploads/2012/11/99233806-bringing-home-new-cat-632x475.jpg'
         image_count = len(request.user.images.all())
         album_count = len(request.user.albums.all())
-        return render(request, 'profile_view.html', context={'img': img, 'image_count': image_count, 'album_count': album_count})
+        return render(request, 'profile_view.html',
+                      context={'img': img,
+                               'image_count': image_count,
+                               'album_count': album_count})
     else:
         return redirect('login')
 
 
 def home_page(request):
     try:
-        img = Image.objects.all().filter(published='Public').order_by("?")[0].photo.url
+        img = Image.objects.all().filter(published='Public'
+                                         ).order_by("?")[0].photo.url
     except IndexError:
         img = 'https://www.petfinder.com/wp-content/uploads/2012/11/99233806-bringing-home-new-cat-632x475.jpg'
     return render(request, 'home.html', context={'img': img})

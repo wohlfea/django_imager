@@ -12,9 +12,6 @@
                 {% for album in albums %}
                 <li>
                     <h4> {{ album }}</h4>
-                    <p>
-                        {{ album.cover.photo }}
-                    </p>
                     {% thumbnail album.cover.photo "200x100" as cov %}
                     <img src="{{ cov.url }}"/>
                     {% endthumbnail %}
@@ -33,7 +30,7 @@
                 {% for image in images %}
                 <li>
                     <h4> {{ image }}</h4>
-                    {% thumbnail image "200x100" as img %}
+                    {% thumbnail image.photo "200x100" as img %}
                     <img src="{{ img.url }}"/>
                     {% endthumbnail %}
                 </li>

@@ -26,6 +26,7 @@ class Album(models.Model):
     published = models.CharField(max_length=7, choices=VISIBILITY_CHOICES,
                                  default='Private')
     cover = models.ForeignKey('Image', null=True, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.title
 
