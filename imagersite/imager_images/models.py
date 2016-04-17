@@ -25,9 +25,6 @@ class Album(models.Model):
     date_published = models.DateTimeField(auto_now_add=True)
     published = models.CharField(max_length=7, choices=VISIBILITY_CHOICES,
                                  default='Private')
-    cover = ImageField(default='/photo_files/default_cat.jpg')
-
-
     def __str__(self):
         return self.title
 
@@ -51,3 +48,5 @@ class Image(models.Model):
 
     def __str__(self):
         return self.title
+
+Album.cover = models.ForeignKey(Image, null=True, on_delete=models.CASCADE)

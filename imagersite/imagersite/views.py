@@ -34,10 +34,9 @@ from imager_images.models import Image
 #         foo = 'garbonzo beans'
 #         return {'foo': foo}
 def library(request):
-    albums = []
-    for album in request.user.albums.all():
-        albums.append(album.cover.url[1:])
-    return render(request, 'images/library.html', context={'albums': albums})
+    return render(request, 'images/library.html',
+                  context={'albums': request.user.albums.all(),
+                           'images': request.user.images.all()})
 
 def profile_view(request):
     if request.user.is_authenticated():
