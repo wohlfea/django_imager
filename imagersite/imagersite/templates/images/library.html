@@ -1,44 +1,28 @@
 {% extends "base.html" %}
-
+{% load thumbnail %}
 {% block content %}
 <div class="container">
     <h2>Albums</h2>
     <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <ul>
-
-                {% load thumbnail %}
-                {% for album in albums %}
-                <li>
-                    <h4> {{ album }}</h4>
-                    {% thumbnail album.cover.photo "200x100" as cov %}
-                    <img src="{{ cov.url }}"/>
-                    {% endthumbnail %}
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="col-md-3"></div>
-        </div>
+        {% for album in albums %}
+            <div class="col-md-3">
+                <h4> {{ album }}</h4>
+                {% thumbnail album.cover.photo "200x100" as cov %}
+                <img src="{{ cov.url }}"/>
+                {% endthumbnail %}
+            </div>
+        {% endfor %}
     </div>
     <h2>Photos</h2>
     <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <ul>
-                {% for image in images %}
-                <li>
-                    <h4> {{ image }}</h4>
-                    {% thumbnail image.photo "200x100" as img %}
-                    <img src="{{ img.url }}"/>
-                    {% endthumbnail %}
-                </li>
-                {% endfor %}
-            </ul>
+        {% for image in images %}
+        <div class="col-md-3">
+            <h4> {{ image }}</h4>
+            {% thumbnail image.photo "200x100" as img %}
+            <img src="{{ img.url }}"/>
+            {% endthumbnail %}
         </div>
-        <div class="col-md-3"></div>
-        </div>
+        {% endfor %}
     </div>
     </div>
 {% endblock %}
