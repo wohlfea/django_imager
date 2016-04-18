@@ -28,8 +28,8 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^accounts/profile', profile_view, name='profile_view'),
     url(r'^images/library', library, name='library'),
-    url(r'^images/album/(?P<album_id>[0-9]+)', album_view, name='album_view'),
-    url(r'^images/image/(?P<image_id>[0-9]+)', image_view, name='image_view')
+    url(r'^images/album/(?P<user_id>[0-9]+)/(?P<album_id>[0-9]+)', album_view, name='album_view'),
+    url(r'^images/image/(?P<user_id>[0-9]+)/(?P<image_id>[0-9]+)', image_view, name='image_view')
 ]
 
 if settings.DEBUG:

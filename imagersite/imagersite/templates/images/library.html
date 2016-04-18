@@ -8,7 +8,7 @@
             <div class="col-md-3">
                 <h4> {{ album }}</h4>
                 {% thumbnail album.cover.photo "200x100" as cov %}
-                <a href="{% url 'album_view' album.id %}"><img src="{{ cov.url }}"/></a>
+                <a href="{% url 'album_view' album.owner.id album.id %}"><img src="{{ cov.url }}"/></a>
                 {% endthumbnail %}
             </div>
         {% endfor %}
@@ -19,7 +19,7 @@
         <div class="col-md-3">
             <h4> {{ image }}</h4>
             {% thumbnail image.photo "200x100" as img %}
-            <a href="{% url 'image_view' image.id %}"><img src="{{ img.url }}"/></a>
+            <a href="{% url 'image_view' image.owner.id image.id %}"><img src="{{ img.url }}"/></a>
             {% endthumbnail %}
         </div>
         {% endfor %}

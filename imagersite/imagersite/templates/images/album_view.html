@@ -8,7 +8,7 @@
             <div class="col-md-3">
                 <h4> {{ image }}</h4>
                 {% thumbnail image.photo "200x100" as img %}
-                <a href="{% url 'image_view' image.id %}"><img src="{{ img.url }}"/></a>
+                <a href="{% url 'image_view' image.owner.id image.id %}"><img src="{{ img.url }}"/></a>
                 {% endthumbnail %}
             </div>
         {% endfor %}
