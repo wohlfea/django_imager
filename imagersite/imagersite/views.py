@@ -1,27 +1,9 @@
 from __future__ import unicode_literals
 from django.http import HttpResponse
-# from django.template import loader
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth.views import login
 from imager_images.models import Image
-
-# def home_page(request, *args, **kwargs):
-#     template = loader.get_template('home.html')
-#     body = template.render({'foo': 'foo'})
-#     return HttpResponse(body)
-
-# This is nicer!
-# def home_page(request, *args, **kwargs):
-#     return render(request, 'home.html', context={'foo': 'foo'})
-#
-#
-# class ClassView(TemplateView):
-#     template_name = 'home.html'
-#
-#     def get_context_data(self, id=1):
-#         foo = 'garbonzo beans'
-#         return {'foo': foo}
 
 
 def image_view(request, **kwargs):

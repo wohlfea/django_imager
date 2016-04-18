@@ -35,10 +35,8 @@ class TestProfile(TestCase):
         self.auth.login(username='testuser', password='testpassword')
 
     def tearDown(self):
-        os.remove(os.path.join(BASE_DIR,
-                               'media/{}'.format(self.image1.photo.url)))
-        os.remove(os.path.join(BASE_DIR,
-                               'media/{}'.format(self.image2.photo.url)))
+        os.remove('{}{}'.format(BASE_DIR, self.image1.photo.url))
+        os.remove('{}{}'.format(BASE_DIR, self.image2.photo.url))
 
     def test_unauth_home_response(self):
         response = self.unauth.get('/')
@@ -63,3 +61,7 @@ class TestProfile(TestCase):
     def test_private_image_not_in_response(self):
         response = self.unauth.get('/')
         self.assertTrue(self.image2.photo.url not in str(response.content))
+
+    def test_test(self):
+
+        self.assertTrue(False)
