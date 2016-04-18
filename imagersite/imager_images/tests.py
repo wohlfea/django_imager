@@ -35,10 +35,8 @@ class TestImages(TestCase):
         self.image1.albums.add(self.album1)
 
     def tearDown(self):
-        os.remove(os.path.join(BASE_DIR,
-                               'media/{}'.format(self.image1.photo.url)))
-        os.remove(os.path.join(BASE_DIR,
-                               'media/{}'.format(self.image2.photo.url)))
+        os.remove('{}{}'.format(BASE_DIR, self.image1.photo.url))
+        os.remove('{}{}'.format(BASE_DIR, self.image2.photo.url))
 
     def test_album_exists(self):
         """Test album has been created."""

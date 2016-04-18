@@ -15,20 +15,23 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin, auth
-from .views import home_page, profile_view, library
+from .views import home_page, profile_view, library, album_view, image_view
 from django.conf import settings
 from django.conf.urls.static import static
-# from .views import ClassView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home_page, name='home_page'),
     url(r'^accounts/login/$', auth.views.login, name="login"),
-    url(r'^accounts/logout/$', auth.views.logout, {'next_page': home_page}, name='logout'),
+    url(r'^accounts/logout/$', auth.views.logout,
+        {'next_page': home_page}, name='logout'),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^accounts/profile', profile_view, name='profile_view'),
-    url(r'^images/library', library, name='library')
+    url(r'^images/library', library, name='library'),
+    url(r'^images/album/(?P<user_id>[0-9]+)/(?P<album_id>[0-9]+)', album_view, name='album_view'),
+    url(r'^images/image/(?P<user_id>[0-9]+)/(?P<image_id>[0-9]+)', image_view, name='image_view')
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

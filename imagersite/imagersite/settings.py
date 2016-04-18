@@ -28,6 +28,7 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
     EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp', 'emails')
 ALLOWED_HOSTS = []
+THUMBNAIL_DEBUG = True
 # HMAC Activation
 ACCOUNT_ACTIVATION_DAYS = 7
 
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-MEDIA_URL = '/'
+MEDIA_URL = '/media/'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
