@@ -5,17 +5,6 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth.views import login
 from imager_images.models import Image
-#     kwargstring = argstring = ''
-#     if args:
-#         argstring = 'args: {}'.format(', '.join(args))
-#     if kwargs:
-#         kwargstring = 'kwargs: \n{}'.format(''.join(['\t{}: {}'.format(key, val) for key, val in kwargs.items()]))
-#     body = """
-# home page view was called with:
-#     {}
-#     {}
-#     """.format(argstring, kwargstring)
-
 
 # def home_page(request, *args, **kwargs):
 #     template = loader.get_template('home.html')
@@ -33,6 +22,22 @@ from imager_images.models import Image
 #     def get_context_data(self, id=1):
 #         foo = 'garbonzo beans'
 #         return {'foo': foo}
+
+
+def image_view(request, **kwargs):
+    image_id = kwargs.get('image_id')
+    image = request.user.images.filter(id=image_id)[0]
+    return render(request, 'images/image_view.html', context={'image': image})
+
+
+def album_view(request, **kwargs):
+    album_id = kwargs.get('album_id')
+    album = request.user.albums.filter(id=album_id)[0]
+    images = request.user.albums.filter(id=album_id)[0].images.all()
+    return render(request, 'images/album_view.html',
+                  context={'album': album, 'images': images})
+
+
 def library(request):
     return render(request, 'images/library.html',
                   context={'albums': request.user.albums.all(),

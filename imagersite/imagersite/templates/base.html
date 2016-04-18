@@ -36,6 +36,8 @@
                 <li><a href="{% url 'registration_register' %}">REGISTER</a></li>
               {% else %}
                 <li><a href="{% url 'auth_logout' %}">LOGOUT</a></li>
+                <li><a href="{% url 'profile_view' %}">PROFILE</a></li>
+                <li><a href="{% url 'library' %}">LIBRARY</a></li>
               {% endif %}
           </ul>
           <ul class="nav navbar-nav navbar-right">

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block content %}
+<div class="container">
+    <h2>{{ album }}</h2>
+    <div class="row">
+        {% for image in images %}
+            <div class="col-md-3">
+                <h4> {{ image }}</h4>
+                {% thumbnail image.photo "200x100" as img %}
+                <a href="{% url 'image_view' image.id %}"><img src="{{ img.url }}"/></a>
+                {% endthumbnail %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
