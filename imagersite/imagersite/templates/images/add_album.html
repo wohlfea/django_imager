@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+    {% block content %}
+    <div class="container">
+        <h2>Add an album</h2>
+        <div class="row">
+          <form class="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-md-2"></div>
+            <ul>
+              <li><label>Title</label>{{ form.title }}</li>
+              <li><label>Description</label>{{ form.description }}</li>
+              <li><label>Images</label>{{ user_images.media }}</li>
+            </ul>
+            <div class="col-md-2"></div>
+            <button type="submit" name="button" value="Submit">Click it like a champ</button>
+          </form>
+        </div>
+        <!-- <h2>Photos</h2>
+        <div class="row">
+            {% for image in images %}
+            <div class="col-md-3">
+                <h4> {{ image }}</h4>
+                {% thumbnail image.photo "200x100" as img %}
+                <a href="{% url 'image_view' image.owner.id image.id %}"><img src="{{ img.url }}"/></a>
+                {% endthumbnail %}
+            </div>
+            {% endfor %}
+        </div> -->
+    </div>
+    {% endblock %}

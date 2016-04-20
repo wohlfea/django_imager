@@ -2,6 +2,9 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.conf import settings
 from sorl.thumbnail import ImageField
+from django.forms import ModelForm
+from django.forms import ModelMultipleChoiceField
+from django.contrib.admin.widgets import FilteredSelectMultiple
 
 
 VISIBILITY_CHOICES = (
@@ -17,7 +20,7 @@ class Album(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               on_delete=models.CASCADE,
                               related_name='albums',
-                              null=True)
+                              default='')
     title = models.CharField(default='', max_length=255)
     description = models.TextField(default='')
     date_uploaded = models.DateTimeField(auto_now_add=True)
@@ -25,7 +28,8 @@ class Album(models.Model):
     date_published = models.DateTimeField(auto_now_add=True)
     published = models.CharField(max_length=7, choices=VISIBILITY_CHOICES,
                                  default='Private')
-    cover = models.ForeignKey('Image', null=True, on_delete=models.CASCADE)
+    # cover = models.ForeignKey('Image', null=True, on_delete=models.CASCADE)
+    cover = models.ImageField(default='default_cat.jpg')
 
     def __str__(self):
         return self.title
@@ -37,8 +41,8 @@ class Image(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               on_delete=models.CASCADE,
                               related_name='images',
-                              null=True)
-    photo = ImageField(upload_to='photo_files/%Y-%m-%d', null=True)
+                              default='')
+    photo = ImageField(upload_to='photo_files/%Y-%m-%d', default='')
     title = models.CharField(default='', max_length=255)
     description = models.TextField(default='')
     date_uploaded = models.DateTimeField(auto_now_add=True)
@@ -50,3 +54,18 @@ class Image(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ImageForm(ModelForm):
+    class Meta:
+        model = Image
+        fields = ['title', 'description', 'published', 'photo']
+
+
+class AlbumForm(ModelForm):
+    class Meta:
+        model = Album
+        fields = ['title', 'description', 'owner']
+
+    # select_images = user_images = ModelMultipleChoiceField(queryset=Image.owner.images.all(),
+    #                                                        widget=FilteredSelectMultiple("verbose name", is_stacked=False))
