@@ -9,6 +9,7 @@ from django.utils.decorators import method_decorator
 from django import forms
 from django.views.generic.edit import FormView
 
+
 def image_view(request, **kwargs):
     image_id = kwargs.get('image_id')
     user = User.objects.filter(id=kwargs.get('user_id')).first()
@@ -37,6 +38,7 @@ def add_photo(request):
         return redirect('library')
     return render(request, 'images/add_image.html', context={'form': form})
 
+
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
@@ -47,27 +49,40 @@ class AlbumForm(forms.ModelForm):
         if kwargs.get('instance'):
             initial = kwargs.setdefault('initial', {})
             initial['images'] = [image.pk for image in kwargs['instance'].images.all()]
-
         forms.ModelForm.__init__(self, *args, **kwargs)
+
+    def save(self, commit=True):
+        # import pdb; pdb.set_trace()
+        instance = forms.ModelForm.save(self, False)
+        old_save_m2m = self.save_m2m
+
+        def save_m2m():
+            old_save_m2m()
+            instance.images.clear()
+            for topping in self.cleaned_data['images']:
+                instance.images.add(topping)
+        self.save_m2m = save_m2m
+        if commit:
+            instance.save()
+            self.save_m2m()
+        return instance
 
 
 @method_decorator(login_required, name='dispatch')
 class AddAlbum(FormView):
     template_name = 'images/add_album.html'
     form_class = AlbumForm
+    success_url = '/images/library/'
 
-    #
-    # def get_form(self, form_class=None):
-    #     form = super(AddAlbum, self).get_form()
-    #     form.fields['images'].queryset = self.request.user.images.all()
-        # return form
+    def get_form(self, form_class=None):
+        form = super(AddAlbum, self).get_form()
+        form.fields['images'].queryset = self.request.user.images.all()
+        return form
 
-
-    # form = AlbumForm(request.POST)
-    # form.instance.owner = request.user
-    # images = request.user.images.all()
-    # if request.method == 'POST' and form.is_valid():
-    #     # form.cleaned_data.get('images')
-    #     form.save()
-    #     return redirect('library')
-    # return render(request, 'images/add_album.html', context={'form': form, 'images': images})
+    def form_valid(self, form, *args, **kwargs):
+        self.object = form.save(commit=False)
+        self.object.owner = self.request.user
+        self.object.save()
+        images = form.cleaned_data['images']
+        [image.albums.add(self.object) for image in images]
+        return super(AddAlbum, self).form_valid(form)
