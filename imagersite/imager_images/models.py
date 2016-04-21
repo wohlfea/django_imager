@@ -62,10 +62,10 @@ class ImageForm(ModelForm):
         fields = ['title', 'description', 'published', 'photo']
 
 
-class AlbumForm(ModelForm):
-    class Meta:
-        model = Album
-        fields = ['title', 'description', 'owner']
+# class AlbumForm(ModelForm):
+#     class Meta:
+#         model = Album
+#         fields = ['title', 'description', 'owner']
 
     # select_images = user_images = ModelMultipleChoiceField(queryset=Image.owner.images.all(),
     #                                                        widget=FilteredSelectMultiple("verbose name", is_stacked=False))
