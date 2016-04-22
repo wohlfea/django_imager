@@ -30,7 +30,7 @@ class TestProfile(TestCase):
         self.image1.save()
         self.image2.save()
         self.album1 = Album(title='My Album', owner=self.test_user1,
-                            cover=self.image1)
+                            cover=self.image1.photo)
         self.album1.save()
 
         self.unauth = Client()
@@ -111,12 +111,14 @@ class TestProfile(TestCase):
         """Access granted if logged in as user to view private picture."""
         user_id = self.test_user1.id
         image_id = self.image2.id
-        response = self.auth.get('/images/image/{}/{}'.format(user_id, image_id))
+        response = self.auth.get('/images/image/{}/{}'.format(user_id,
+                                                              image_id))
         self.assertEquals(response.status_code, 200)
 
     def test_unauth_public_image_view(self):
         """Access denied if not authorized to view private picture."""
         user_id = self.test_user1.id
         image_id = self.image2.id
-        response = self.unauth.get('/images/image/{}/{}'.format(user_id, image_id))
+        response = self.unauth.get('/images/image/{}/{}'.format(user_id,
+                                                                image_id))
         self.assertEquals(response.status_code, 401)

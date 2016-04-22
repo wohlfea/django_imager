@@ -28,7 +28,6 @@ class Album(models.Model):
     date_published = models.DateTimeField(auto_now_add=True)
     published = models.CharField(max_length=7, choices=VISIBILITY_CHOICES,
                                  default='Private')
-    # cover = models.ForeignKey('Image', null=True, on_delete=models.CASCADE)
     cover = models.ImageField(default='default_cat.jpg')
 
     def __str__(self):
@@ -60,12 +59,3 @@ class ImageForm(ModelForm):
     class Meta:
         model = Image
         fields = ['title', 'description', 'published', 'photo']
-
-
-# class AlbumForm(ModelForm):
-#     class Meta:
-#         model = Album
-#         fields = ['title', 'description', 'owner']
-
-    # select_images = user_images = ModelMultipleChoiceField(queryset=Image.owner.images.all(),
-    #                                                        widget=FilteredSelectMultiple("verbose name", is_stacked=False))

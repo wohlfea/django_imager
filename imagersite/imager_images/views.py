@@ -32,6 +32,7 @@ def album_view(request, **kwargs):
                   context={'album': album, 'images': images})
 
 
+@login_required
 def add_photo(request):
     form = ImageForm(request.POST, request.FILES)
     if request.method == 'POST' and form.is_valid():
@@ -54,7 +55,6 @@ class AlbumForm(forms.ModelForm):
         forms.ModelForm.__init__(self, *args, **kwargs)
 
     def save(self, commit=True):
-        # import pdb; pdb.set_trace()
         instance = forms.ModelForm.save(self, False)
         old_save_m2m = self.save_m2m
 
