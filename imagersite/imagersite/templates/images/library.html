@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block content %}
+<div class="container">
+    <h2>Albums</h2>
+    <div class="row">
+        {% for album in albums %}
+            <div class="col-md-3">
+                <h4> {{ album }}</h4>
+                {% if album.cover.photo %}
+                  {% thumbnail album.cover.photo "200x100" as cov %}
+                  <a href="{% url 'album_view' album.owner.id album.id %}"><img src="{{ cov.url }}"/></a>
+                  {% endthumbnail %}
+                {% else %}
+                  {% thumbnail album.cover "200x100" as cov %}
+                  <a href="{% url 'album_view' album.owner.id album.id %}"><img src="{{ cov.url }}"/></a>
+                  {% endthumbnail %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    <h2>Photos</h2>
+    <div class="row">
+        {% for image in images %}
+        <div class="col-md-3">
+            <h4> {{ image }}</h4>
+            {% thumbnail image.photo "200x100" as img %}
+            <a href="{% url 'image_view' image.owner.id image.id %}"><img src="{{ img.url }}"/></a>
+            {% endthumbnail %}
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+{% endblock %}
