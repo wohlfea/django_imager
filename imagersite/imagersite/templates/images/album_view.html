@@ -4,6 +4,7 @@
 <div class="container">
     <h2>{{ album }}</h2>
     <div class="row">
+      <a href="{% url 'edit_album' album.id %}"><button type="button" name="button">EDIT THIS OR WHATEVER</button></a>
         {% for image in images %}
             <div class="col-md-3">
                 <h4> {{ image }}</h4>

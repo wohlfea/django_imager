@@ -2,11 +2,15 @@
 {% load thumbnail %}
 {% block content %}
 <div class="container">
+  <a href="{% url 'edit_image' image.id %}"><button type="button" name="button">EDIT THIS OR DON'T</button></a>
     <h2>{{ image }}</h2>
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <img src="{{ image.photo.url }}" width=80%/>
+            <p>
+              {{ image.description }}
+            </p>
         </div>
         <div class="col-md-2"></div>
     </div>

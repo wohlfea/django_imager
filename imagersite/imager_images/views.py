@@ -1,12 +1,14 @@
 from __future__ import unicode_literals
+from django import http
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import ImageForm, Album, Image
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView
 from django.utils.decorators import method_decorator
 from django import forms
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.views.generic.edit import FormView
 
 
@@ -86,3 +88,53 @@ class AddAlbum(FormView):
         images = form.cleaned_data['images']
         [image.albums.add(self.object) for image in images]
         return super(AddAlbum, self).form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class EditImage(UpdateView):
+    model = Image
+    template_name = 'images/edit_image.html'
+    fields = ['title', 'description', 'published']
+    success_url = '/images/library'
+
+    def get(self, request, *args, **kwargs):
+        try:
+
+            image = Image.objects.get(owner=self.request.user.id,
+                                      pk=kwargs['pk'])
+        except ObjectDoesNotExist:
+            raise http.HttpResponseNotFound('<p>Page Not Found</p>')
+        if request.user != image.owner:
+            raise PermissionDenied
+        else:
+            return super(EditImage, self).get(request)
+
+    def form_valid(self, form, *args, **kwargs):
+        self.object = form.save(commit=False)
+        self.object.owner = self.request.user
+        self.object.save()
+        return super(EditImage, self).form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class EditAlbum(UpdateView):
+    model = Album
+    template_name = 'images/edit_album.html'
+    fields = ['title', 'description', 'published', 'cover']
+    success_url = '/images/library'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            album = Album.objects.get(pk=kwargs['pk'])
+        except ObjectDoesNotExist:
+            raise http.HttpResponseNotFound('<h1>Page not found.</h1>')
+        if request.user.id != album.owner.id:
+            raise PermissionDenied
+        else:
+            return super(EditAlbum, self).get(request)
+
+    def form_valid(self, form, *args, **kwargs):
+        self.object = form.save(commit=False)
+        self.object.owner = self.request.user
+        self.object.save()
+        return super(EditAlbum, self).form_valid(form)
