@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import Album, Image
 from datetime import datetime
+from django.test import Client
 from django.db.models.fields.files import ImageFieldFile
 import factory
 import os
@@ -101,3 +102,51 @@ class TestImages(TestCase):
     def test_image_has_image(self):
         """Test to verify image has been created with an image."""
         self.assertIsInstance(self.image1.photo, ImageFieldFile)
+
+
+class TestViews(TestCase):
+
+    def setUp(self):
+        """Setup users, images, albums, auth & unauth clients."""
+        self.test_user1 = User.objects.create_user('testuser',
+                                                   'test@test.com',
+                                                   'testpassword')
+        self.test_user1.save()
+        self.image1 = PhotoFactory.create(title='image 1',
+                                          owner=self.test_user1,
+                                          published='Public')
+        self.image2 = PhotoFactory.create(title='image 2',
+                                          owner=self.test_user1)
+        self.image1.save()
+        self.image2.save()
+        self.album1 = Album(title='My Album', owner=self.test_user1,
+                            cover=self.image1.photo)
+        self.album1.save()
+        self.unauth = Client()
+        self.auth = Client()
+        self.auth.login(username='testuser', password='testpassword')
+
+    def tearDown(self):
+        """Delete temporary pictures."""
+        os.remove('{}{}'.format(BASE_DIR, self.image1.photo.url))
+        os.remove('{}{}'.format(BASE_DIR, self.image2.photo.url))
+
+    def test_unauth_add_photo_response(self):
+        """Test unauthed user can't get to photo add page."""
+        response = self.unauth.get('/images/photo/add/')
+        self.assertEquals(response.status_code, 302)
+
+    def test_auth_add_photo_response(self):
+        """Test authed user can get to photo add page."""
+        response = self.auth.get('/images/photo/add/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_unauth_add_album_response(self):
+        """Test unauthed user can't get to album add page."""
+        response = self.unauth.get('/images/album/add/')
+        self.assertEquals(response.status_code, 302)
+
+    def test_auth_add_album_response(self):
+        """Test authed user can get to photo add page."""
+        response = self.auth.get('/images/album/add/')
+        self.assertEquals(response.status_code, 200)

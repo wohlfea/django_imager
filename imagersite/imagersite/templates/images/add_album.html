@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+    {% block content %}
+    <div class="container">
+        <h2>Add an album</h2>
+        <div class="row">
+          <form class="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-md-2"></div>
+            {{ form.as_p }}
+            <div class="col-md-2"></div>
+            <button type="submit" name="button" value="Submit">Click it like a champ</button>
+          </form>
+        </div>
+    </div>
+    {% endblock %}

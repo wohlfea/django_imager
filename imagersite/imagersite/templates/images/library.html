@@ -7,9 +7,15 @@
         {% for album in albums %}
             <div class="col-md-3">
                 <h4> {{ album }}</h4>
-                {% thumbnail album.cover.photo "200x100" as cov %}
-                <a href="{% url 'album_view' album.owner.id album.id %}"><img src="{{ cov.url }}"/></a>
-                {% endthumbnail %}
+                {% if album.cover.photo %}
+                  {% thumbnail album.cover.photo "200x100" as cov %}
+                  <a href="{% url 'album_view' album.owner.id album.id %}"><img src="{{ cov.url }}"/></a>
+                  {% endthumbnail %}
+                {% else %}
+                  {% thumbnail album.cover "200x100" as cov %}
+                  <a href="{% url 'album_view' album.owner.id album.id %}"><img src="{{ cov.url }}"/></a>
+                  {% endthumbnail %}
+                {% endif %}
             </div>
         {% endfor %}
     </div>

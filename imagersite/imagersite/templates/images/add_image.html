@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+    {% block content %}
+    <div class="container">
+        <h2>Add an image</h2>
+        <div class="row">
+          <form class="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-md-2"></div>
+            <ul>
+              <li><label>Title</label>{{ form.title }}</li>
+              <li><label>Description</label>{{ form.description }}</li>
+              <li><label>How Secret?</label>{{ form.published }}</li>
+              <li><label>Give'er</label>{{ form.photo }}</li>
+            </ul>
+            <div class="col-md-2"></div>
+            <button type="submit" name="button" value="Submit">Get that Cat on the Internet</button>
+          </form>
+        </div>
+    </div>
+    {% endblock %}

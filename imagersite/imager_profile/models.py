@@ -25,7 +25,7 @@ class ImagerProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
                                 related_name='profile',
-                                null=False)
+                                default='')
     location = models.CharField(default='', max_length=255)
     bio = models.TextField(default='')
     camera = models.TextField(default='')
