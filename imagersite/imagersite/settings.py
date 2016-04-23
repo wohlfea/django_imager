@@ -30,7 +30,7 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
     EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp', 'emails')
 ALLOWED_HOSTS = []
-THUMBNAIL_DEBUG = True
+THUMBNAIL_DEBUG = os.environ.get("DJANGO_DEBUG")
 # HMAC Activation
 ACCOUNT_ACTIVATION_DAYS = 7
 
