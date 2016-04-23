@@ -36,6 +36,9 @@ class ImagerProfile(models.Model):
     objects = models.Manager()
     active = ActiveUserManager()
 
+    def __str__(self):
+        return self.user
+
     @property
     def is_active(self):
         """Return True if associated user is active."""
