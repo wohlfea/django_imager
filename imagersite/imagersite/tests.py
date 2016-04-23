@@ -4,7 +4,7 @@ from imager_images.models import Album, Image
 from django.test import Client
 import factory
 import os
-from imagersite.settings import BASE_DIR
+# from imagersite.settings import BASE_DIR
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):
@@ -38,10 +38,10 @@ class TestProfile(TestCase):
         self.auth = Client()
         self.auth.login(username='testuser', password='testpassword')
 
-    def tearDown(self):
-        """Delete temporary pictures."""
-        os.remove('{}{}'.format(BASE_DIR, self.image1.photo.url))
-        os.remove('{}{}'.format(BASE_DIR, self.image2.photo.url))
+    # def tearDown(self):
+        # """Delete temporary pictures."""
+        # os.remove('{}{}'.format(BASE_DIR, self.image1.photo.url))
+        # os.remove('{}{}'.format(BASE_DIR, self.image2.photo.url))
 
     def test_unauth_home_response(self):
         """Test anyone can get to home page."""

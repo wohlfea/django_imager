@@ -6,7 +6,7 @@ from django.test import Client
 from django.db.models.fields.files import ImageFieldFile
 import factory
 import os
-from imagersite.settings import BASE_DIR
+# from imagersite.settings import BASE_DIR
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):
@@ -35,9 +35,9 @@ class TestImages(TestCase):
         self.image2.save()
         self.image1.albums.add(self.album1)
 
-    def tearDown(self):
-        os.remove('{}{}'.format(BASE_DIR, self.image1.photo.url))
-        os.remove('{}{}'.format(BASE_DIR, self.image2.photo.url))
+    # def tearDown(self):
+    #     os.remove('{}{}'.format(BASE_DIR, self.image1.photo.url))
+    #     os.remove('{}{}'.format(BASE_DIR, self.image2.photo.url))
 
     def test_album_exists(self):
         """Test album has been created."""
@@ -126,10 +126,10 @@ class TestViews(TestCase):
         self.auth = Client()
         self.auth.login(username='testuser', password='testpassword')
 
-    def tearDown(self):
-        """Delete temporary pictures."""
-        os.remove('{}{}'.format(BASE_DIR, self.image1.photo.url))
-        os.remove('{}{}'.format(BASE_DIR, self.image2.photo.url))
+    # def tearDown(self):
+    #     """Delete temporary pictures."""
+    #     os.remove('{}{}'.format(BASE_DIR, self.image1.photo.url))
+    #     os.remove('{}{}'.format(BASE_DIR, self.image2.photo.url))
 
     def test_unauth_add_photo_response(self):
         """Test unauthed user can't get to photo add page."""
