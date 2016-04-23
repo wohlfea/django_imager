@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,20 +21,25 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'j_@f1bu!!h4v52^$e95nb94kwo292$12-ng7)3k7%fscbjc(u-'
+# SECRET_KEY = 'j_@f1bu!!h4v52^$e95nb94kwo292$12-ng7)3k7%fscbjc(u-'
+SECRET_KEY = os.environ.get["DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.envoron.get["DJANGO_DEBUG"]
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
     EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp', 'emails')
 ALLOWED_HOSTS = []
-THUMBNAIL_DEBUG = True
+THUMBNAIL_DEBUG = os.environ.get["DJANGO_DEBUG"]
 # HMAC Activation
 ACCOUNT_ACTIVATION_DAYS = 7
 
-# Application definition
+ALLOWED_HOSTS = [
+    '.us-west-2.compute.amazonaws.com',
+    'localhost',
+]
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,20 +84,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'imagersite.wsgi.application'
-
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 MEDIA_URL = '/media/'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_imager',
-    }
+    'default': dj_database_url.config(default=os.environ.get('DJANGO_DATABASE_URL'))
 }
 
 
