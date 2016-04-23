@@ -22,15 +22,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'j_@f1bu!!h4v52^$e95nb94kwo292$12-ng7)3k7%fscbjc(u-'
-SECRET_KEY = os.environ.get["DJANGO_SECRET_KEY"]
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.envoron.get["DJANGO_DEBUG"]
+DEBUG = os.envoron.get("DJANGO_DEBUG")
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
     EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp', 'emails')
 ALLOWED_HOSTS = []
-THUMBNAIL_DEBUG = os.environ.get["DJANGO_DEBUG"]
+THUMBNAIL_DEBUG = os.environ.get("DJANGO_DEBUG")
 # HMAC Activation
 ACCOUNT_ACTIVATION_DAYS = 7
 
