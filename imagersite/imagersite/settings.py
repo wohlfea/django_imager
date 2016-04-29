@@ -16,19 +16,14 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'j_@f1bu!!h4v52^$e95nb94kwo292$12-ng7)3k7%fscbjc(u-'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
-SECRET_KEY = os.environ.get("SECRET_KEY")
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-    EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp', 'emails')
+SECRET_KEY = os.environ.get("SECRET_KEY", "notsecretatall")
+
+# if DEBUG:
+#     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+#     EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp', 'emails')
+
 THUMBNAIL_DEBUG = os.environ.get("DEBUG")
 # HMAC Activation
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -83,6 +78,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'imagersite.wsgi.application'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
