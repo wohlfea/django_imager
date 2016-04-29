@@ -1,6 +1,6 @@
 import os
 import dj_database_url
-from settings import *
+from .settings import *
 
 DEBUG = os.environ.get("DEBUG")
 THUMBNAIL_DEBUG = os.environ.get("DEBUG")
