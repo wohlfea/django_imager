@@ -2,12 +2,11 @@ import os
 import dj_database_url
 from .settings import *
 
-DEBUG = False
-THUMBNAIL_DEBUG = False
-# TEMPLATE_DEBUG = False
+DEBUG = os.environ.get("DEBUG")
+THUMBNAIL_DEBUG = os.environ.get("DEBUG")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
 ALLOWED_HOSTS = [
     '.us-west-2.compute.amazonaws.com',
