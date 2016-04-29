@@ -1,6 +1,6 @@
 from settings import *
 
-DEBUG = False
+DEBUG = os.environ.get("DEBUG")
 THUMBNAIL_DEBUG = os.environ.get("DEBUG")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DATABASES = {
