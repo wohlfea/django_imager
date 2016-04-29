@@ -8,8 +8,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
-ALLOWED_HOSTS = ['.us-west-2.compute.amazonaws.com', 'localhost', '127.0.0.1']
-# ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['.us-west-2.compute.amazonaws.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get("EMAIL_HOST")
 EMAIL_PORT = os.environ.get("EMAIL_PORT")
