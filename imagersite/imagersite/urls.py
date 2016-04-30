@@ -30,7 +30,8 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^accounts/profile', profile_view, name='profile_view'),
     url(r'^images/library', library, name='library'),
-    url(r'^images/', include('imager_images.urls'))
+    url(r'^images/', include('imager_images.urls')),
+    url(r'^api/', include('api.urls'))
 ]
 
 if settings.DEBUG:
