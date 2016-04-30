@@ -18,10 +18,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 SECRET_KEY = os.environ.get("SECRET_KEY", "notsecretatall")
-
-# if DEBUG:
-#     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-#     EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp', 'emails')
+DEBUG = os.environ.get("DEBUG", True)
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp', 'emails')
 
 # HMAC Activation
 ACCOUNT_ACTIVATION_DAYS = 7
