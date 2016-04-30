@@ -9,8 +9,6 @@ router.register(r'photos', views.PhotoList)
 
 urlpatterns = [
     url(r'^v1/', include(router.urls)),
-    # url(r'^v1/(?P<pk>[0-9]+)/$', views.PhotoDetail.as_view())
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework'))
 ]
-
-# urlpatterns = format_suffix_patterns(urlpatterns)

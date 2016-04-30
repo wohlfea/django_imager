@@ -3,10 +3,9 @@ from api.serializers import PhotoSerializer
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from api.permissions import IsOwner
-from rest_framework import mixins, generics, permissions, viewsets
+from rest_framework import mixins, generics, viewsets
 
 
-# Create your views here.
 class PhotoList(viewsets.ModelViewSet):
     """API endpoint allowing for user photos to be viewed."""
     queryset = Image.objects.filter(published='Public')
@@ -16,7 +15,3 @@ class PhotoList(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = super(PhotoList, self).get_queryset()
         return queryset.filter(owner=self.request.user)
-
-
-class PhotoDetail(generics.GenericAPIView):
-    pass
